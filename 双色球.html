@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	*{
+		margin:0;
+		padding:0;
+		list-style: none;
+	}
+	ul{
+		width:800px;
+		height:100px;
+		margin:50px auto;
+	}
+	li{
+		width:80px;
+		height:80px;
+		line-height: 80px;
+		text-align: center;
+		border:2px solid #f00;
+		border-radius: 50%;
+		float:left;
+		background: #ccc;
+		margin-left:20px;
+	}
+	li:nth-child(5)
+	{
+		border:2px solid #00f;
+	}
+	li:last-child
+	{
+		border:2px solid #00f;
+	}
+	input{
+		margin-left:20px;
+	}
+</style>
+<body>
+<ul>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+	<li></li>
+</ul>
+<input type="button" value="开始" id="begin">
+<input type="button" value="暂停" id="stop">
+<input type="button" value="清空" id="gap">
+	<script>
+      var oli=document.getElementsByTagName("li");
+      var ob=document.getElementById("begin");
+      var os=document.getElementById("stop");
+      var og=document.getElementById("gap");
+      var timer=null;
+      ob.onclick=function()
+      {
+      	ob.disabled=true;
+      	timer=setInterval(function(){
+      	var arr=[],brr=[];
+      	for(var i=0;arr.length<=oli.length-2;i++)
+      	{
+      		var num=Math.floor(Math.random()*35+1);
+      		if(arr.indexOf(num)==-1)
+      		{
+                arr.push(num);
+      		}
+      	}
+      	for(var i=0;i<oli.length-2;i++)
+      	{
+      	   oli[i].innerHTML=arr[i];
+      	}
+      	for(var i=oli.length-2;brr.length<oli.length;i++)
+        {
+            var num2=Math.floor(Math.random()*11);
+      		if(arr.indexOf(num2)==-1)
+      		{
+                brr.push(num2);
+      		}
+        }
+        for(var i=oli.length-2;i<oli.length;i++)
+      	{
+      	   oli[i].innerHTML=brr[i];
+      	}
+
+
+           },200)
+      }
+      os.onclick=function()
+      {
+      	clearInterval(timer);
+      	ob.disabled=false;
+      }
+      og.onclick=function()
+      {
+      	for(var i=0;i<oli.length;i++)
+      	{
+      		oli[i].innerHTML="";
+      	}
+      }
+	</script>
+</body>
+</html>

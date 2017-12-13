@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	*{
+		margin:0;
+		padding:0;
+	}
+	#minbox{
+		display: inline-block;
+		width:300px;
+		height:200px;
+		margin-left:20px;
+		margin-top:20px;
+		float: left;
+		position: relative;
+	}
+	#maxbox{
+		width:300px;
+		height:200px;
+		float: left;
+		margin-left:20px;
+		margin-top:20px;
+		position: relative;
+		display: none;
+		overflow: hidden;
+
+	}
+	#maxbox img{
+
+        position: absolute;
+        left:0;
+        top:0;
+	}
+	#min{
+		width:150px;
+		height:100px;
+		background:rgba(0,0,0,0.5);
+		position: absolute;
+		left:0;
+		top:0;
+		display: none;
+	}
+</style>
+<body>
+<div id="minbox">
+   <img src="img/wu2.jpg">
+   <p id="min"></p>
+</div>
+<div id="maxbox">
+   <img src="img/吴亦凡.jpg">
+</div>
+	<script>
+      var ominbox=document.getElementById("minbox");
+      var omaxbox=document.getElementById("maxbox");
+      var oimg=omaxbox.getElementsByTagName('img')[0];
+      var omin=document.getElementById("min");
+      ominbox.onmousemove=function(e)
+      {
+         var event=e || window.event
+         var sbx=event.clientX-ominbox.offsetLeft-omin.offsetWidth/2;
+         var sby=event.clientY-ominbox.offsetTop-omin.offsetHeight/2;
+         omin.style.display="block";
+         if(sby<0) sby=0;
+         if(sbx<0) sbx=0;
+         if(sbx>ominbox.offsetWidth-omin.offsetWidth)sbx=ominbox.offsetWidth-omin.offsetWidth;
+         if(sby>ominbox.offsetHeight-omin.offsetHeight)sby=ominbox.offsetHeight-omin.offsetHeight;
+         omin.style.left=sbx+"px";
+         omin.style.top=sby+"px";
+         var bilix=oimg.offsetWidth/ominbox.offsetWidth;
+         var biliy=oimg.offsetHeight/ominbox.offsetHeight;
+         omaxbox.style.display="block";
+         oimg.style.left=-sbx*bilix+"px";
+         oimg.style.top=-sby*biliy+"px";
+
+      }
+      ominbox.onmouseout=function()
+      {
+      	omin.style.display="none";
+      	omaxbox.style.display="none";
+      }
+	</script>
+</body>
+</html>

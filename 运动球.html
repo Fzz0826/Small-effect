@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#draw{
+			border:2px solid #000;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="draw" width="400" height="400"></canvas>
+</body>
+<script>
+	var box = document.getElementById('draw');
+	var w = box.width;
+	var h = box.height;
+	var ctx = box.getContext('2d');
+	function color(){
+		var r = Math.floor(Math.random()*255);
+		var g = Math.floor(Math.random()*255);
+		var b = Math.floor(Math.random()*255);
+		return 'rgb('+r+','+g+','+b+')';
+	}
+	var stepx = 2;
+	var stepy = 3;
+	function drawArc(r,x,y) {
+		ctx.clearRect(0,0,400,400);
+		ctx.beginPath();
+		ctx.arc(x,y,r,0,2*Math.PI);
+		ctx.fillStyle = color();
+		ctx.fill();
+	}
+
+	//drawArc(50,150,150);
+	
+	var timer = null;
+	var x = 150,y=150;
+	timer = setInterval(function(){
+		
+		if(x >= 350 || x < 50){
+			stepx *= -1;
+		}else if(y >= 350 || y < 50){
+			stepy *= -1;
+		}
+		
+		drawArc(50,x+=stepx,y+=stepy); 
+	},1000/60)
+</script>
+</html>

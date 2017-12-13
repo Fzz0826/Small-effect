@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<!--width 300-->
+	<!--height 150-->
+	<canvas style="border:3px solid #999" width="400px" height="400px" id="draw"></canvas>
+</body>
+
+<script>
+	var draw = document.querySelector('#draw');
+
+	
+
+	if(draw.getContext){
+		var cav = draw.getContext('2d');
+		//开始绘制路径
+		cav.beginPath();
+		
+		cav.translate(50,350);
+
+		cav.moveTo(0,0);
+
+		cav.lineTo(0,-350);
+
+		cav.moveTo(0,0);
+
+		cav.lineTo(350,0)
+
+		cav.stroke();
+
+		cav.closePath();//关闭路径
+
+		
+
+		
+
+		var dotArr = dot(10);
+
+		var timer = null;
+
+		var move = 30;
+		timer = setInterval(function(){
+			move--;
+			if(move <= 0){
+				clearInterval(timer);
+				return;
+			}
+			cav.beginPath();
+			cav.clearRect(0,0,350,-350);
+			cav.moveTo(0,0);
+			dotArr.forEach(function(item,index){
+				cav.lineTo(item.x / move ,item.y)
+			});
+			cav.stroke();
+		},1000/60)
+		
+		dotArr.forEach(function(item,index){
+			cav.moveTo(item.x,0);
+			cav.lineTo(item.x,-10);
+			cav.fillStyle = 'red';
+			cav.font = '12px 微软雅黑';
+			cav.textAlign = 'center';
+			cav.fillText(index*30,item.x,15);
+		});
+
+		cav.strokeStyle = "red"; //0-255
+
+		
+
+	}else{
+		alert('当前浏览器不支持canvas')
+	}
+
+	function setNum(min,max) {
+		return Math.floor(Math.random()*(max-min+1)+min);
+	}
+	
+	function dot(num){
+		var arr = [];
+		var moveS = 30;
+		for(var i=0;i<num;i++){
+			arr.push({
+				x:i*moveS,
+				y:-setNum(60,350)
+			})
+		}
+		return arr;
+	}
+</script>
+</html>
